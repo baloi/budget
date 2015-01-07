@@ -66,7 +66,7 @@ class User(Base):
     return True
 
 class Item(Base):
-  """An item (expense or earning)."""
+  """An item bought or to buy."""
   __tablename__ = 'item'
 
   id = Column(Integer, primary_key=True)
@@ -80,6 +80,26 @@ class Item(Base):
 
   def repr():
     return (u'<{self.__class__.__name__): {self.id}>'.format(self=self))
+
+
+#TODO: Expense and Earnings class as subclasses of Transaction class
+class Transaction(Base):
+  """An item (expense or earning)."""
+  __tablename__ = 'transaction'
+
+  id = Column(Integer, primary_key=True)
+  # TODO: created should be changed to date with "date" value and today as 
+  # default
+  created = Column(DateTime, default = datetime.now)
+  name = Column(String(255))
+  description = Column(Text)
+
+  amount = Column(Numeric(10, 2))
+
+  def repr():
+    return (u'<{self.__class__.__name__): {self.id}>'.format(self=self))
+
+
 
 def get_session(create_tables=False):
   from sqlalchemy import create_engine
