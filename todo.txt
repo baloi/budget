@@ -1,0 +1,7 @@
+
+> models.py
+  
+  * an Expense should be connected to an Item and an Item my have one to many
+    'expenses' called 'payments'
+
+  * an Earning should have a 'from' member
