@@ -81,13 +81,12 @@ class Item(Base):
   def repr():
     return (u'<{self.__class__.__name__): {self.id}>'.format(self=self))
 
-
-#TODO: Expense and Earnings class as subclasses of Transaction class
 class Transaction(Base):
   """An item (expense or earning)."""
   __tablename__ = 'transaction'
 
   id = Column(Integer, primary_key=True)
+
   # TODO: created should be changed to date with "date" value and today as 
   # default
   created = Column(DateTime, default = datetime.now)
@@ -95,10 +94,26 @@ class Transaction(Base):
   description = Column(Text)
 
   amount = Column(Numeric(10, 2))
+  type = Column(String(20))
+
+  __mapper_args__ = {
+        'polymorphic_on':type,
+        'polymorphic_identity':'transaction'
+  }
 
   def repr():
     return (u'<{self.__class__.__name__): {self.id}>'.format(self=self))
 
+
+class Expense(Transaction):
+  __mapper_args__ = {
+    'polymorphic_identity':'expense'
+  }
+
+class Earning(Transaction):
+  __mapper_args__ = {
+    'polymorphic_identity':'earning'
+  }
 
 
 def get_session(create_tables=False):
