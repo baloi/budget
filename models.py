@@ -6,6 +6,9 @@ from sqlalchemy import DateTime, Integer, String, Text, Numeric
 from sqlalchemy.orm import synonym
 from sqlalchemy.ext.declarative import declarative_base
 
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship, backref
+
 Base = declarative_base()
 
 class User(Base):
@@ -65,6 +68,46 @@ class User(Base):
   def is_authenticated(self):
     return True
 
+class Transaction(Base):
+  """An item (expense or earning)."""
+  __tablename__ = 'transaction'
+
+  id = Column(Integer, primary_key=True)
+
+  # TODO: created should be changed to date with "date" value and today as 
+  # default
+  created = Column(DateTime, default = datetime.now)
+  name = Column(String(255))
+  description = Column(Text)
+  # ForeignKey: item.id
+  item_id = Column(Integer, ForeignKey('item.id'))
+
+  amount = Column(Numeric(10, 2))
+  type = Column(String(20))
+
+  __mapper_args__ = {
+        'polymorphic_on':type,
+        'polymorphic_identity':'transaction'
+  }
+
+  def repr():
+    return (u'<{self.__class__.__name__): {self.id}>'.format(self=self))
+
+class Expense(Transaction):
+  __mapper_args__ = {
+    'polymorphic_identity':'expense'
+  }
+
+  # Relationship: An Expense is a payment to an item. An Item can have one to 
+  # many payments
+  #item = relationship("Item", backref=backref('payments', order_by=id))
+
+class Earning(Transaction):
+  __mapper_args__ = {
+    'polymorphic_identity':'earning'
+  }
+
+
 class Item(Base):
   """An item bought or to buy."""
   __tablename__ = 'item'
@@ -78,42 +121,12 @@ class Item(Base):
 
   amount = Column(Numeric(10, 2))
 
-  def repr():
-    return (u'<{self.__class__.__name__): {self.id}>'.format(self=self))
-
-class Transaction(Base):
-  """An item (expense or earning)."""
-  __tablename__ = 'transaction'
-
-  id = Column(Integer, primary_key=True)
-
-  # TODO: created should be changed to date with "date" value and today as 
-  # default
-  created = Column(DateTime, default = datetime.now)
-  name = Column(String(255))
-  description = Column(Text)
-
-  amount = Column(Numeric(10, 2))
-  type = Column(String(20))
-
-  __mapper_args__ = {
-        'polymorphic_on':type,
-        'polymorphic_identity':'transaction'
-  }
+  # Relationship: Item has one to many payments, a payment being an Expense
+  payments = relationship("Expense", order_by="Expense.id", backref="item")
 
   def repr():
     return (u'<{self.__class__.__name__): {self.id}>'.format(self=self))
 
-
-class Expense(Transaction):
-  __mapper_args__ = {
-    'polymorphic_identity':'expense'
-  }
-
-class Earning(Transaction):
-  __mapper_args__ = {
-    'polymorphic_identity':'earning'
-  }
 
 
 def get_session(create_tables=False):
