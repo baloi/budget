@@ -43,6 +43,9 @@ class agBudget:
             raise Exception(
                     "Trying to add into earnings which is not an earning" )
 
+    def add_item( self, anItem ):
+        self.items.append( anItem )
+
     def process_payment( self, aPayment ):
         anExpense = agExpense()
         anExpense.amount = aPayment.amount
