@@ -1,0 +1,7 @@
+summary, TOTAL, amount, 0
+summary, TOTAL, date, 1
+summary, CATEGORIES, amount, 0
+summary, CATEGORIES, category, 1
+expenses, MONTHLY, due_date, 0
+expenses, MONTHLY, amount, 1
+expenses, MONTHLY, , 1

@@ -1,0 +1,26 @@
+> MONTHLY EXPENSES SHOULD BE INTEGRATED INTO WEEKLY EXPENSES,
+  so WEEKLY EXPENSES should be calculated this way:
+
+  1. How much has been accumulated for the particular expense category?
+  2. When is the deadline of the expense?
+  3. From this pay period until the deadline, how much per week?
+
+> SUMMARY:
+  
+  Should have total cash value in checking.
+  Should have a breakdown of where the money belongs.
+
+    Example:
+
+> Scenario: Payday and allocating money to categories
+  - update total money
+  - update individual categories
+
+> Scenario pay bill/expense:
+  - update total money
+  - delete goals if needed (if expense is paid for)
+
+> See goal progress:
+  - subtract summary.category amount to expenses.goals.amount and all categories
+
+> make indexes of columns for text files

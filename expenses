@@ -1,0 +1,28 @@
+// legend: MONTHLY( date, amount, description ), WEEKLY( amount, description )
+----
+MONTHLY
+1, 40, Capital One
+4, 308, K of C
+10, 220, AT & T
+10, 25, Target
+12, 120, CBank Loan 
+15, 260, Car Loan
+15, 88, Cable
+----
+WEEKLY (from 9/6/2015)
+200, food
+120, gas
+150, kenken, until 10/5/2015
+100, christmas, until 12/18/2015
+222, pilipinas, until 7/4/2016 
+40, CBank transfer
+20, fnfgcard
+----
+BIWEEKLY
+300, rent, 9/6/2015
+150, rent, 9/11/2015
+----
+GOALS
+1500, christmas, 12/15/2015 
+600, kenken birthday, 10/5/2015, 4 weeks from 9/7/2015 (dynamic) 
+10000, pilipinas, 7/4/2016, 45 weeks from 9/7/2015 (dynamic)

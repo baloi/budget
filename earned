@@ -1,0 +1,18 @@
+#!/usr/bin/env/python
+
+print "hello there"
+# open summary
+
+# read contents of file into an array
+
+
+
+# get line number of summary.TOTAL.amount
+
+# add amount to earned amount (from argument)
+
+# update summary.TOTAL.amount
+
+# update summary.TOTAL.date
+
+# replace 
